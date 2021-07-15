@@ -1,26 +1,41 @@
-import React from 'react'
+import { useState } from 'react'
+
+import { nanoid } from 'nanoid'
+
+import Form from './Form'
 import Card from './Card'
-import Navbar from './Navbar'
 
 function App() {
-  const arr = [1, 2, 3, 4, 5]
+  const [cards, setCards] = useState([])
+
+  function addCard(userInput, descriptionInput) {
+    if (userInput) {
+      const newCard = {
+        id: nanoid(),
+        title: userInput,
+        description: descriptionInput
+      }
+      setCards([...cards, newCard])
+    }
+  }
+  function removeCard(id) {
+    setCards(cards.filter(card => card.id !== id))
+  }
+  function editCard(titleInput, descriptionInput) {
+    
+  }
   return (
-    <div className="App">
+    <>
       <div className="container">
-      <Navbar />
-        <div class="row justify-content-md-center">
-          <div class="col-md-auto">
-          <Card  />
-          </div>
-          <div class="col-md-auto">
-          <Card  />
-          </div>
-          <div class="col-md-auto">
-          <Card  />
-          </div>
-        </div>
+        <header>
+          <h1> Добавить пост </h1>
+        </header>
+        <Form addCard={addCard} />
+        {cards.map((card) => (
+          <Card card={card} editCard={editCard} removeCard={removeCard} key={card.id} />
+        ))}
       </div>
-    </div>
+    </>
   )
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './custom.css';
-import './bootstrap.min.css'
+import './materialize.min.css'
 import App from './App';
 
 ReactDOM.render(
