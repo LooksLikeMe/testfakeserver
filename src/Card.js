@@ -5,7 +5,7 @@ function Card({ card, removeCard, editCard }) {
   const [titleInput, setTitleInput] = useState(card.title)
   const [descriptionInput, setDescriptionInput] = useState(card.description)
   const [buttonEdit, setButtonEdit] = useState('Редактировать')
-  
+
   //methods
   const handleTitle = (e) => {
     setTitleInput(e.target.value)
@@ -13,18 +13,21 @@ function Card({ card, removeCard, editCard }) {
   const handleDescription = (e) => {
     setDescriptionInput(e.target.value)
   }
- const returnCardValue = () => {
-  setTitleInput(card.title)
-  setDescriptionInput(card.description)
- }
-
+  const cancelCardEdit = () => {
+    setTitleInput(card.title)
+    setDescriptionInput(card.description)
+  }
+  const handleEdit = () => {
+    
+  }
   const visibleEditMode = () => {
-    if(editMode) {
+    if (editMode) {
       setEditMode(false)
       setButtonEdit('Сохранить')
     } else {
-    setEditMode(true)
-    setButtonEdit('Редактировать')
+      setEditMode(true)
+      setButtonEdit('Редактировать')
+      editCard(setTitleInput, setDescriptionInput, card.id)
     }
   }
   return (
@@ -45,10 +48,11 @@ function Card({ card, removeCard, editCard }) {
                 value={descriptionInput}
                 disabled={editMode}
               />
+              <p> {card.id}</p> 
             </div>
             <div className="card-action">
               <button onClick={visibleEditMode}>{buttonEdit}</button>
-              <button hidden={editMode} onClick={returnCardValue}>
+              <button hidden={editMode} onClick={cancelCardEdit}>
                 Отмена
               </button>
               <button onClick={() => removeCard(card.id)}> &times; </button>
